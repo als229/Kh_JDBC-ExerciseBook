@@ -7,26 +7,21 @@ import com.kh.view.MemberView;
 public class MemberController {
 
 	public void insertMember(String userId, String userPwd, String userName, String gender, int age, String email,
-	         String phone, String address, String hobby) {
-	      
-	      // 1. 전달된 데이터들을 Member객체에 담기 => 가공처리
-	      Member m = new Member(userId, userPwd, userName, gender, age, email,
-	                          phone, address, hobby);
-	      
-	      // 2. Dao의 insertMember 메소드 호출
-	      int result = new MemberService().insertMember(m);
-	      
-	      // 3. 결과값에 따라서 사용자가 보게 될 화면 지정
-	      if(result > 0) { // 성공했을 경우
-	         // 성공메시지를 띄워주는 화면 호출
-	         new MemberView().displaySuccess("회원 추가 성공");
-	      }else { // 실패했을 경우
-	         // 실패메시지를 띄워주는 화면 호출
-	         new MemberView().displayFail("회원 추가 실패");
-	      }
-	   }
-	
-	
+			String phone, String address, String hobby) {
+		
+		int result = 0;
+		
+		Member m = new Member(userId,userPwd,userName,gender,age,email,phone,address,hobby);
+			result = new MemberService().insertMember(m);
+		
+		if(result > 0) {
+			new MemberView().displaySuccess("회원 추가 성공!");
+		}else {
+			new MemberView().displayFail("회원 추가 실패 ~");
+		}
+		
+	}
+
 	
 	/*
 	public void selectAllMember() {

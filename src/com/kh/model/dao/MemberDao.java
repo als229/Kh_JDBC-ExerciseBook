@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.kh.common.JDBCTemplate;
 import com.kh.model.vo.Member;
 
 public class MemberDao {
@@ -39,49 +38,32 @@ public class MemberDao {
 	 * 갯수
 	 */
 	
-	
 	public int insertMember(Connection conn, Member m) {
-		// INSERT문 => 처리된 행의 갯수 => 트랜잭션처리
-		// 0) 필요한 변수들 먼저 셋팅
 		
-		int result = 0; //처리된 결과(행의 갯수)를 담아줄 변수
-		
-		PreparedStatement pstmt = null; // SQL문 실행후 결과를 받기 위한 변수
-		
-		// 실행할 SQL문(미완성된 형태로)
-		String sql = "INSERT INTO MEMBER" +
-					" VALUES(SEQ_USERNO.NEXTVAL, ?,?,?,?,?,?,?,?,?,SYSDATE)";
+		int result = 0;
+		String sql = "INSERT INTO MEMBER VALUES"
+				+ "(SEQ_USERNO.NEXTVAL, ?,?,?,?,?,?,?,?,?,SYSDATE)";
 		
 		try {
-			// 3_1) PreparedStatement 객체 생성(SQL문을 미리 넘겨준다)
-			pstmt = conn.prepareStatement(sql);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			// 3_2) 미완성된 SQL문일 경우 완성시켜주기
-			pstmt.setString(1,m.getUserId());
-			pstmt.setString(2,m.getUserPwd());
-			pstmt.setString(3,m.getUserName());
-			pstmt.setString(4,m.getGender());
-			pstmt.setInt(5,m.getAge());
-			pstmt.setString(6,m.getEmail());
-			pstmt.setString(7,m.getPhone());
-			pstmt.setString(8,m.getAddress());
-			pstmt.setString(9,m.getHobby());
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName());
+			pstmt.setString(4, m.getGender());
+			pstmt.setInt(5, m.getAge());
+			pstmt.setString(6, m.getEmail());
+			pstmt.setString(7, m.getPhone());
+			pstmt.setString(8, m.getAddress());
+			pstmt.setString(9, m.getHobby());
 			
-			// 4, 5) DB에 완성된 SQL문을 실행 후 결과(*처리된 행의 갯수) 받기
 			result = pstmt.executeUpdate();
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}	finally {
-			JDBCTemplate.close(pstmt);
 		}
-
+		
 		return result;
-	
 	}
-	
-	
-	
 	
 }

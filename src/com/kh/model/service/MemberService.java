@@ -15,15 +15,11 @@ import com.kh.model.vo.Member;
  			  => 서비스 단을 추가함으로써 DAO에는 순수하게 SQL문을 처리하는 부분만 남음
  */
 
-
-
-public class MemberService {
+public class MemberService{
 
 	public int insertMember(Member m) {
-		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		// DAO 호출 시 Connection 객체와 기존에 넘기고자 했던 매개변수를 같이 넘김
 		int result = new MemberDao().insertMember(conn,m);
 		
 		if(result > 0) {
@@ -32,11 +28,13 @@ public class MemberService {
 			JDBCTemplate.rollback(conn);
 		}
 		
-		// Connection 객체 반납
 		JDBCTemplate.close(conn);
+		
 		
 		return result;
 	}
+	
+
 	
 	
 	
