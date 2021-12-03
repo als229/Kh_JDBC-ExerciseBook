@@ -38,32 +38,6 @@ public class MemberDao {
 	 * 갯수
 	 */
 	
-	public int insertMember(Connection conn, Member m) {
-		
-		int result = 0;
-		String sql = "INSERT INTO MEMBER VALUES"
-				+ "(SEQ_USERNO.NEXTVAL, ?,?,?,?,?,?,?,?,?,SYSDATE)";
-		
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, m.getUserId());
-			pstmt.setString(2, m.getUserPwd());
-			pstmt.setString(3, m.getUserName());
-			pstmt.setString(4, m.getGender());
-			pstmt.setInt(5, m.getAge());
-			pstmt.setString(6, m.getEmail());
-			pstmt.setString(7, m.getPhone());
-			pstmt.setString(8, m.getAddress());
-			pstmt.setString(9, m.getHobby());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
+
 	
 }

@@ -15,28 +15,8 @@ import com.kh.model.vo.Member;
  			  => 서비스 단을 추가함으로써 DAO에는 순수하게 SQL문을 처리하는 부분만 남음
  */
 
-public class MemberService{
-
-	public int insertMember(Member m) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new MemberDao().insertMember(conn,m);
-		
-		if(result > 0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		JDBCTemplate.close(conn);
-		
-		
-		return result;
-	}
-	
 
 	
 	
 	
 	
-}
